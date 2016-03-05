@@ -167,12 +167,20 @@ To sign your own firmware:
 
 
 ======================================
-
+To use a hardware debugger (st-link):
+    sudo apt-get install openocd
+    sudo openocd -f interface/stlink-v2.cfg -f target/stm32f2x_stlink.cfg
+    Then, either:
+        telnet 127.0.0.1 4444
+    OR
+        sudo apt-get -o Dpkg::Options::="--force-overwrite" install gdb-arm-none-eabi
+        arm-none-eabi-gdb
+        target remote :3333
 
 
  
 
-
+=====================================
 To modify the ITEAD OLED screen module from i2c to SPI:
 
 remove R3, R4, R5, and R7.
