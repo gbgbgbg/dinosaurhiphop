@@ -42,7 +42,7 @@ To flash a conbined.bin to the DINOSAURHIPHOP:
     WARNING:  without source modifications, this will cause your DINOSAURHIPHOP
               to become FUNCTIONALLY IDENTICAL to a Trezor - including PERMINANTLY
               locking the memory sections containing the bootloader code.
-
+    Slide the switch to DFU-Bootloader mode and plug in the USB on your DINOSAURHIPHOP
     sudo /usr/local/bin/dfu-util -v -D combined.bin -a 0 -s 0x8000000:1048576
 
 
@@ -172,10 +172,12 @@ To use a hardware debugger (st-link):
     sudo openocd -f interface/stlink-v2.cfg -f target/stm32f2x_stlink.cfg
     Then, either:
         telnet 127.0.0.1 4444
+        reset halt
     OR
         sudo apt-get -o Dpkg::Options::="--force-overwrite" install gdb-arm-none-eabi
         arm-none-eabi-gdb
         target remote :3333
+        monitor reset halt
 
 
  
