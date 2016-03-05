@@ -50,6 +50,7 @@ To flash a conbined.bin to the DINOSAURHIPHOP:
 To DISABLE the bootloader memory protection locking code:
     comment out the call to memory_protect at the beginning of main (line 144) in bootloader.c
 
+    I've also had difficulty with the bootloader getting caught in the random32 call in the beginning of main(), and the workaround is replacing it with a fixed value, for example 0x41414141.  This behavior needs to be understood better before any fulltime use.
 
 To use a 25Mhz crystal (rather than an 8Mhz crystal), apply the following patch to the libopencm3 code:
 
@@ -151,9 +152,21 @@ index 6955034..8c23709 100644
 +       struct rcc_clock_scale clock = rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_120MHZ];
 
 
+======================================
+To sign your own firmware:
+
+    sudo apt-get install python-pip
+    sudo pip install ecdsa ssss
+    To generate keys:
+        python firmware_sign_split.py
+    Modify the top of firmware_sign to replace with your pub keys
+    Run three times to add signatures, once for each of three slots:
+        python python firmware_sign.py -s -f trezor.bin
+    Modify the pubkeys at the top of bootloader/signatures.c with your pub keys
+    Recompile bootloader
 
 
-
+======================================
 
 
 
